@@ -14,10 +14,13 @@ function App() {
     useInitRegenApi({ setRegenApi, wallet });
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold mb-4">
-                REGEN Redwood Account Viewer APP 🌱
+        <div className="flex flex-col items-center justify-center bg-gray-50 min-h-screen px-4 overflow-hidden">
+            <h1 className="text-center text-xl sm:text-4xl font-extrabold text-gray-900 mb-2">
+                REGEN Account Viewer APP 🌱
             </h1>
+            <h2 className="text-md sm:text-xl text-gray-500 mb-4">
+                REDWOOD Tesnet
+            </h2>
             <BalancePage address={wallet?.address} regenApi={regenApi} />
         </div>
     );

@@ -1,4 +1,8 @@
 import { RegenApi } from "@regen-network/api/lib";
+import AddressLink from "components/AddressLink";
+import Amount from "components/Amount";
+import DataRow from "components/DataRow";
+import Loader from "components/Loader";
 import useAllBalance from "hooks/queries/useAllBalance";
 import { formatAmount } from "utils/format/formatAmout";
 
@@ -12,26 +16,23 @@ const BalancePage = ({ regenApi, address }: BalancePageProps) => {
 
     return (
         <div className="text-center">
-            <div>
-                Account address:{" "}
-                <a
-                    href={`https://redwood.regen.aneka.io/accounts/${address}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline text-blue-500"
-                >
-                    {address ?? "Loading ..."}
-                </a>
-            </div>
-
+            <DataRow
+                name="Account address:"
+                value={<AddressLink address={address} />}
+            />
             {balance ? (
-                <span>
-                    {`Amount: ${formatAmount({
-                        amount: balance.balances[0]?.amount ?? "0",
-                    })} REGEN`}
-                </span>
+                <DataRow
+                    name="Amount:"
+                    value={
+                        <Amount
+                            amount={formatAmount({
+                                amount: balance.balances[0]?.amount ?? "0",
+                            })}
+                        />
+                    }
+                />
             ) : (
-                <span>{"Loading ..."}</span>
+                <Loader />
             )}
         </div>
     );
