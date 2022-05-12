@@ -9,7 +9,13 @@ type Props = {
 
 const useInitWaller = ({ setWallet }: Props) => {
     useEffect(() => {
-        connectWallet({ setWallet });
+        try {
+            connectWallet({ setWallet });
+        } catch (e) {
+            console.error(e);
+            // try one more time
+            setTimeout(() => connectWallet({ setWallet }), 1000);
+        }
     }, [setWallet]);
 };
 
