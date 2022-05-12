@@ -5,18 +5,21 @@ import { Wallet } from "utils/wallet/wallet.types";
 
 type Props = {
     setWallet: useStateSetter<Wallet | undefined>;
+    setError: useStateSetter<Error | undefined>;
 };
 
-const useInitWaller = ({ setWallet }: Props) => {
+const useInitWaller = ({ setWallet, setError }: Props) => {
     useEffect(() => {
-        try {
-            connectWallet({ setWallet });
-        } catch (e) {
-            console.error(e);
-            // try one more time
-            setTimeout(() => connectWallet({ setWallet }), 1000);
-        }
-    }, [setWallet]);
+        const initWallet = async () => {
+            try {
+                await connectWallet({ setWallet });
+            } catch (e: unknown) {
+                setError(e as Error);
+            }
+        };
+
+        initWallet();
+    }, [setWallet, setError]);
 };
 
 export default useInitWaller;

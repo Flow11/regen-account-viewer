@@ -8,9 +8,10 @@ import { Wallet } from "utils/wallet/wallet.types";
 function App() {
     const [wallet, setWallet] = useState<Wallet>();
     const [regenApi, setRegenApi] = useState<RegenApi>();
+    const [error, setError] = useState<Error>();
 
     // Could be used along with React.createContext to avoid props drilling
-    useInitWaller({ setWallet });
+    useInitWaller({ setWallet, setError });
     useInitRegenApi({ setRegenApi, wallet });
 
     return (
@@ -21,7 +22,11 @@ function App() {
             <h2 className="text-md sm:text-xl text-gray-500 mb-4">
                 REDWOOD Tesnet
             </h2>
-            <BalancePage address={wallet?.address} regenApi={regenApi} />
+            {error ? (
+                <p className="text-red-500">{String(error)}</p>
+            ) : (
+                <BalancePage address={wallet?.address} regenApi={regenApi} />
+            )}
         </div>
     );
 }
