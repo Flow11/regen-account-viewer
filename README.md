@@ -12,6 +12,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `npm start`
 
-## Running the testt
+## Running the test
 
 ### `npm test`
