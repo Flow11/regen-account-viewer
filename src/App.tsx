@@ -1,28 +1,17 @@
 import { RegenApi } from "@regen-network/api/lib";
+import useInitRegenApi from "hooks/useInitRegenApi";
+import useInitWaller from "hooks/useInitWallet";
 import BalancePage from "pages/BalancePage";
-import React, { useEffect, useState } from "react";
-import { getRegenApi } from "utils/regen/getRegenApi";
-import { connectWallet } from "utils/wallet/connectWallet";
+import React, { useState } from "react";
 import { Wallet } from "utils/wallet/wallet.types";
 
 function App() {
     const [wallet, setWallet] = useState<Wallet>();
     const [regenApi, setRegenApi] = useState<RegenApi>();
 
-    useEffect(() => {
-        connectWallet({ setWallet });
-    }, [setWallet]);
-
-    useEffect(() => {
-        const initRegenApi = async () => {
-            const api = await getRegenApi({ signer: wallet?.offlineSigner });
-            setRegenApi(api);
-        };
-
-        if (wallet) {
-            initRegenApi();
-        }
-    }, [wallet]);
+    // Could be used along with React.createContext to avoid props drilling
+    useInitWaller({ setWallet });
+    useInitRegenApi({ setRegenApi, wallet });
 
     return (
         <div className="flex flex-col items-center justify-center">

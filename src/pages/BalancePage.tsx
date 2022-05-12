@@ -12,22 +12,21 @@ const BalancePage = ({ regenApi, address }: BalancePageProps) => {
 
     return (
         <div className="text-center">
-            {address ? (
-                <div>
-                    Account address:{" "}
-                    <a
-                        href={`https://redwood.regen.aneka.io/accounts/${address}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="underline text-blue-500"
-                    >
-                        {address}
-                    </a>
-                </div>
-            ) : null}
+            <div>
+                Account address:{" "}
+                <a
+                    href={`https://redwood.regen.aneka.io/accounts/${address}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-blue-500"
+                >
+                    {address ?? "Loading ..."}
+                </a>
+            </div>
+
             {balance ? (
                 <span>
-                    {`${formatAmount({
+                    {`Amount: ${formatAmount({
                         amount: balance.balances[0]?.amount ?? "0",
                     })} REGEN`}
                 </span>
