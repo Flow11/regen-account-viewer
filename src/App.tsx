@@ -25,8 +25,10 @@ function App() {
     }, [wallet]);
 
     return (
-        <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-bold">Account Viewer APP</h1>
+        <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold mb-4">
+                REGEN Redwood Account Viewer APP 🌱
+            </h1>
             <BalancePage address={wallet?.address} regenApi={regenApi} />
         </div>
     );
