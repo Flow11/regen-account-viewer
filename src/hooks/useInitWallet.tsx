@@ -5,16 +5,16 @@ import { Wallet } from 'utils/wallet/wallet.types'
 
 type Props = {
   setWallet: useStateSetter<Wallet | undefined>
-  setError: useStateSetter<Error | undefined>
+  setError?: useStateSetter<Error | undefined>
 }
 
-const useInitWaller = ({ setWallet, setError }: Props) => {
+const useInitWallet = ({ setWallet, setError }: Props) => {
   useEffect(() => {
     const initWallet = async () => {
       try {
         await connectWallet({ setWallet })
       } catch (e: unknown) {
-        setError(e as Error)
+        console.error(e)
       }
     }
 
@@ -22,4 +22,4 @@ const useInitWaller = ({ setWallet, setError }: Props) => {
   }, [setWallet, setError])
 }
 
-export default useInitWaller
+export default useInitWallet

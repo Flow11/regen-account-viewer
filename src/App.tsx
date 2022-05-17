@@ -1,17 +1,15 @@
 import { RegenApi } from '@regen-network/api/lib'
+import WalletContext from 'context/wallet/Wallet.context'
 import useInitRegenApi from 'hooks/useInitRegenApi'
-import useInitWaller from 'hooks/useInitWallet'
 import BalancePage from 'pages/BalancePage'
-import React, { useState } from 'react'
-import { Wallet } from 'utils/wallet/wallet.types'
+import React, { useContext, useState } from 'react'
 
 function App() {
-  const [wallet, setWallet] = useState<Wallet>()
   const [regenApi, setRegenApi] = useState<RegenApi>()
   const [error, setError] = useState<Error>()
+  const walletContext = useContext(WalletContext)
+  const wallet = walletContext?.wallet
 
-  // Could be used along with React.createContext to avoid props drilling
-  useInitWaller({ setWallet, setError })
   useInitRegenApi({ setRegenApi, wallet })
 
   return (

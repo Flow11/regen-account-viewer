@@ -3,7 +3,8 @@ import AddressLink from 'components/AddressLink'
 import Amount from 'components/Amount'
 import DataRow from 'components/DataRow'
 import Loader from 'components/Loader'
-import useAllBalance from 'hooks/queries/useAllBalance'
+import SendForm from 'components/SendForm'
+import useBalance from 'hooks/queries/useBalance'
 import { formatAmount } from 'utils/format/formatAmout'
 
 type BalancePageProps = {
@@ -12,10 +13,11 @@ type BalancePageProps = {
 }
 
 const BalancePage = ({ regenApi, address }: BalancePageProps) => {
-  const balance = useAllBalance({ address, api: regenApi })
+  const balance = useBalance({ address, api: regenApi })
 
   return (
     <div className="text-center">
+      <SendForm defaultSender={address} regenApi={regenApi} />
       <DataRow
         name="Account address:"
         value={<AddressLink address={address} />}
@@ -26,7 +28,7 @@ const BalancePage = ({ regenApi, address }: BalancePageProps) => {
           value={
             <Amount
               amount={formatAmount({
-                amount: balance.balances[0]?.amount ?? '0'
+                amount: balance.balance?.amount ?? '0'
               })}
             />
           }

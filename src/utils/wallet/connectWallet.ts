@@ -20,6 +20,7 @@ export const connectWallet = async ({
     const offlineSigner = window.getOfflineSignerAuto
       ? await window.getOfflineSignerAuto(chainId)
       : undefined
+
     const key = await window.keplr.getKey(chainId)
     if (key && key.bech32Address && offlineSigner) {
       const wallet = {
