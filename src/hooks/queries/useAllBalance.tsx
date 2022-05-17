@@ -1,34 +1,32 @@
-import { RegenApi } from "@regen-network/api/lib";
+import { RegenApi } from '@regen-network/api/lib'
 import {
-    QueryAllBalancesResponse,
-    QueryClientImpl as BankQueryClientImpl,
-} from "@regen-network/api/lib/generated/cosmos/bank/v1beta1/query";
-import { useEffect, useState } from "react";
+  QueryAllBalancesResponse,
+  QueryClientImpl as BankQueryClientImpl
+} from '@regen-network/api/lib/generated/cosmos/bank/v1beta1/query'
+import { useEffect, useState } from 'react'
 
-type UseAllBalanceProps = { address?: string; api?: RegenApi };
+type UseAllBalanceProps = { address?: string; api?: RegenApi }
 
 const useAllBalance = ({ address, api }: UseAllBalanceProps) => {
-    const [balance, setBalance] = useState<
-        QueryAllBalancesResponse | undefined
-    >(undefined);
+  const [balance, setBalance] = useState<QueryAllBalancesResponse | undefined>(
+    undefined
+  )
 
-    useEffect(() => {
-        const getBalance = async () => {
-            if (api && address) {
-                const bankQueryClient = new BankQueryClientImpl(
-                    api.queryClient
-                );
-                bankQueryClient
-                    .AllBalances({ address })
-                    .then(setBalance)
-                    .catch(console.error);
-            }
-        };
+  useEffect(() => {
+    const getBalance = async () => {
+      if (api && address) {
+        const bankQueryClient = new BankQueryClientImpl(api.queryClient)
+        bankQueryClient
+          .AllBalances({ address })
+          .then(setBalance)
+          .catch(console.error)
+      }
+    }
 
-        getBalance();
-    }, [address, api]);
+    getBalance()
+  }, [address, api])
 
-    return balance;
-};
+  return balance
+}
 
-export default useAllBalance;
+export default useAllBalance

@@ -1,6 +1,6 @@
-import { OfflineSigner } from "@cosmjs/proto-signing";
+import { OfflineSigner } from '@cosmjs/proto-signing'
 
 export interface Wallet {
-    offlineSigner?: OfflineSigner;
-    address: string;
+  offlineSigner?: OfflineSigner
+  address: string
 }
